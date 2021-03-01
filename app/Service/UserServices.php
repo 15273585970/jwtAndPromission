@@ -5,6 +5,7 @@ namespace App\Service;
 
 
 use App\Enums\users\UsersTokenState;
+use App\Models\users\TeamList;
 use App\Models\users\Users;
 use App\Models\users\UsersToken;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +26,9 @@ class UserServices
      */
     public function registerUser( $data )
     {
+        DB::beginTransaction();
         try {
+
             $info = Users::where('user_name',$data['username'])->orWhere('true_name',$data['username'])->get();
             if (!$info->isEmpty()) {
                 return "此用户已存在!";
@@ -35,8 +38,18 @@ class UserServices
             $user->password  = password_hash($data['password'],PASSWORD_DEFAULT);
             $user->original_password = $data['password'];
             $user->save();
+
+            //插入团队关系
+            if (!empty($data['father_id'])) {
+                $teamList = new TeamList();
+                $teamList->user_id   = $user->id;
+                $teamList->parent_id = $data['father_id'];
+                $teamList->save();
+            }
             return 1;
+            DB::commit();
         } catch ( \Exception $exception ) {
+            DB::rollBack();
             return $exception->getMessage();
         }
     }
