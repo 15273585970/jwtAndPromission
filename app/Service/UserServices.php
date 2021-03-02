@@ -46,8 +46,8 @@ class UserServices
                 $teamList->parent_id = $data['father_id'];
                 $teamList->save();
             }
-            return 1;
             DB::commit();
+            return 1;
         } catch ( \Exception $exception ) {
             DB::rollBack();
             return $exception->getMessage();
@@ -125,8 +125,8 @@ class UserServices
         }
         //判断token是否过期
         if ( $result['express_at'] <= $now_date ) {
-            $result->uodate_at = $now_date;
-            $result->delete_at = $now_date;
+            $result->updated_at = $now_date;
+            $result->deleted_at = $now_date;
             $result->state = UsersTokenState::过期;
             $result->save();
         }
