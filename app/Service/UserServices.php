@@ -141,8 +141,10 @@ class UserServices
         return $user;
     }
 
-    public function list()
+
+    public function list($user)
     {
-        return Users::all();
+        $result = Users::get(['id','user_name']);
+        return $result;
     }
 }

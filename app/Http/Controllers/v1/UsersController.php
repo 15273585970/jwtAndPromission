@@ -18,9 +18,15 @@ class UsersController extends ApiController
         $this->userServices = $userServices;
     }
 
-    public function getUserList()
+    public function getUserList(Request $request)
     {
-        return $this->userServices->list()->toArray();
+        $user = $request->get('users');
+
+        return $this->userServices->list($user);
+//        dd( today()->toArray() );
+//
+//        dd( optional($request->get('users'))->id );
+//        optional();
     }
 
 }
