@@ -21,6 +21,7 @@ class Users extends Model
     //
     protected $hidden = ['created_at','updated_at','deleted_at','last_login_ip','last_login_at'];
 
+
     public function promission()
     {
         return $this->hasMany('App\Models\UsersPromissionAssioc','u_id');

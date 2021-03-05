@@ -66,6 +66,7 @@ class CheckPromissionControoler extends ApiController
         foreach($p_ids->toArray() as $id){
             $new_pids[] = $id['p_id'];
         }
+
         if (!in_array($p_id,$new_pids)) {
             return false;
         }

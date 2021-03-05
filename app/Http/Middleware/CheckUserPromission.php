@@ -33,6 +33,7 @@ class CheckUserPromission
         if (!is_numeric($result)) {
             return Response()->json(['msg' => $result,'status' => 500]);
         }
+        
         return $next($request);
     }
 }
