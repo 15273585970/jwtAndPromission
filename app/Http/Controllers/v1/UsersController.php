@@ -27,6 +27,7 @@ class UsersController extends ApiController
 //
 //        dd( optional($request->get('users'))->id );
 //        optional();
+        
     }
 
 }
